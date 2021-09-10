@@ -1,4 +1,7 @@
-﻿
+﻿#include <string.h>
+#ifndef _WIN32 
+#include <signal.h>
+#endif 
 #include <event2/event.h>
 #include <event2/listener.h>
 #include <iostream>
@@ -55,9 +58,8 @@ int main()
 
 #ifdef _WIN32
     WSACleanup();
-#endif
-
     system("pause");
+#endif
     return 0;
 }
 
