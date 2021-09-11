@@ -3,8 +3,15 @@
 #include <signal.h>
 #endif 
 #include <event2/event.h>
+#include <event2/thread.h>
+#include <event2/listener.h>
 #include <iostream>
 using namespace std;
+#define SPORT 5001
+
+void listener_cb(struct evconnlistener *ev, evutil_socket_t s, struct sockaddr *sa, int socklen, void *param) {
+	cout << "listener_cb" << endl;
+}
 
 int main()
 {
@@ -31,7 +38,18 @@ int main()
 	//设置特征
     //设置了EV_FEATURE_FDS其他特征就无法设置，再windows中EV_FEATURE_FDS无效
 	//event_config_require_features(conf, EV_FEATURE_FDS|EV_FEATURE_ET);
-	event_config_require_features(conf, EV_FEATURE_FDS);
+	//event_config_require_features(conf, EV_FEATURE_FDS); 
+
+	//windows中支持iocp(线程池)
+#ifdef _WIN32
+	event_config_set_flag(conf, EVENT_BASE_FLAG_STARTUP_IOCP);
+	//初始化线程
+	evthread_use_windows_threads();
+	//设置cpu数量
+	SYSTEM_INFO si;
+	GetSystemInfo(&si);
+	event_config_set_num_cpus_hint(conf, si.dwNumberOfProcessors);
+#endif
 
 	//初始化配置libevent的上下文
 	event_base* base = event_base_new_with_config(conf);
@@ -47,6 +65,9 @@ int main()
 		}
 	}
 	else {
+		//获取当前网络模型
+		cout << "current method is " << event_base_get_method(base) << endl;
+
 		//确认特征是否生效
 		int f = event_base_get_features(base);
 		if (f&EV_FEATURE_ET)
@@ -65,7 +86,16 @@ int main()
 			cout << "EV_FEATURE_EARLY_CLOSE events are supported." << endl;
 		else
 			cout << "EV_FEATURE_EARLY_CLOSE events are not supported." << endl;
+
 		cout << "event_base_new_with_config successed" << endl;
+
+		sockaddr_in sin;
+		sin.sin_family = AF_INET;
+		sin.sin_port = htons(SPORT);
+
+		evconnlistener* ev = evconnlistener_new_bind(base, listener_cb, base, 10, LEV_OPT_CLOSE_ON_FREE|LEV_OPT_REUSEABLE,(sockaddr *)&sin,sizeof(sin));
+		event_base_dispatch(base);
+		evconnlistener_free(ev);
 		event_base_free(base);
 	}
 
