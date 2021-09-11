@@ -38,7 +38,7 @@ int main()
 	//设置特征
     //设置了EV_FEATURE_FDS其他特征就无法设置，再windows中EV_FEATURE_FDS无效
 	//event_config_require_features(conf, EV_FEATURE_FDS|EV_FEATURE_ET);
-	//event_config_require_features(conf, EV_FEATURE_FDS); 
+	//event_config_require_features(conf, EV_FEATURE_FDS);  //不支持epoll
 
     //设置网络模型，使用select
     event_config_avoid_method(conf,"epoll");
