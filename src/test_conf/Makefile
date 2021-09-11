@@ -1,8 +1,8 @@
-test_server:test_server.cpp
+test_conf:test_conf.cpp
 	g++ $^ -o $@ -levent 
 	./$@
 
 clean:
-	rm -rf test_server 
+	rm -rf test_conf 
 	rm -rf *.o
 
