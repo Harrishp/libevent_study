@@ -1,0 +1,15 @@
+﻿生成启动时间为 2021/9/11 9:25:12。
+     1>项目“D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\first_libevent.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (first_libevent.vcxproj, test_server.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         D:\SoftWare\Install\VS2015_enterprise\VC\bin\CL.exe /c /I..\..\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt test_conf.cpp
+         test_conf.cpp
+       Link:
+         D:\SoftWare\Install\VS2015_enterprise\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\Debug\test_conf.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\lib libevent.lib ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\Debug\test_conf.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\Debug\test_conf.lib" /MACHINE:X86 Debug\test_conf.obj
+     1>LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+         first_libevent.vcxproj -> D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\Debug\test_conf.exe
+     1>已完成生成项目“D:\Documents\充电站\Libevent\out\vs2019_32\libevent\src\test_conf\first_libevent.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.42
