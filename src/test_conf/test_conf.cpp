@@ -40,6 +40,9 @@ int main()
 	//event_config_require_features(conf, EV_FEATURE_FDS|EV_FEATURE_ET);
 	//event_config_require_features(conf, EV_FEATURE_FDS); 
 
+    //设置网络模型，使用select
+    event_config_avoid_method(conf,"epoll");
+    event_config_avoid_method(conf,"poll");
 	//windows中支持iocp(线程池)
 #ifdef _WIN32
 	event_config_set_flag(conf, EVENT_BASE_FLAG_STARTUP_IOCP);
@@ -90,6 +93,7 @@ int main()
 		cout << "event_base_new_with_config successed" << endl;
 
 		sockaddr_in sin;
+        memset(&sin,0,sizeof(sin));
 		sin.sin_family = AF_INET;
 		sin.sin_port = htons(SPORT);
 
