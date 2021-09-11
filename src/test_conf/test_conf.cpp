@@ -28,14 +28,41 @@ int main()
 		cout << methods[i] << endl;
 	}
 
+	//设置特征
+	event_config_require_features(conf, EV_FEATURE_ET| EV_FEATURE_FDS);
+
 	//初始化配置libevent的上下文
 	event_base* base = event_base_new_with_config(conf);
 	event_config_free(conf);
 
 	if (!base) {
 		cout << "event_base_new_with_config failed" << endl;
+		base = event_base_new();
+		if (!base)
+		{
+			cerr << "event_base_new failed！" << endl;
+			return 0;
+		}
 	}
 	else {
+		//确认特征是否生效
+		int f = event_base_get_features(base);
+		if (f&EV_FEATURE_ET)
+			cout << "EV_FEATURE_ET events are supported." << endl;
+		else
+			cout << "EV_FEATURE_ET events are not supported." << endl;
+		if (f&EV_FEATURE_O1)
+			cout << "EV_FEATURE_O1 events are supported." << endl;
+		else
+			cout << "EV_FEATURE_O1 events are not supported." << endl;
+		if (f&EV_FEATURE_FDS)
+			cout << "EV_FEATURE_FDS events are supported." << endl;
+		else
+			cout << "EV_FEATURE_FDS events are not supported." << endl;
+		if (f&EV_FEATURE_EARLY_CLOSE)
+			cout << "EV_FEATURE_EARLY_CLOSE events are supported." << endl;
+		else
+			cout << "EV_FEATURE_EARLY_CLOSE events are not supported." << endl;
 		cout << "event_base_new_with_config successed" << endl;
 		event_base_free(base);
 	}
