@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
     }
     //打开文件只读，非阻塞
     int sock = open("/root/libevent_study/src/test_file/Trace20210909.log",O_RDONLY|O_NONBLOCK,0);
-    if(sock){
+    if(sock <= 0){
         cerr << "open /root/libevent_study/src/test_file/Trace20210909.log failed!" << endl;
         return -2;
     }
